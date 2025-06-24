@@ -12,7 +12,8 @@ export default async function handler(req, res) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${OPENAI_API_KEY}`,
+      "Authorization": `Bearer ${OPENAI_API_KEY}`,
+      "OpenAI-Beta": "assistants=v2"
     },
   });
   const thread = await threadRes.json();
@@ -26,7 +27,8 @@ export default async function handler(req, res) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${OPENAI_API_KEY}`,
+      "Authorization": `Bearer ${OPENAI_API_KEY}`,
+      "OpenAI-Beta": "assistants=v2"
     },
     body: JSON.stringify({
       role: "user",
@@ -39,14 +41,15 @@ export default async function handler(req, res) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${OPENAI_API_KEY}`,
+      "Authorization": `Bearer ${OPENAI_API_KEY}`,
+      "OpenAI-Beta": "assistants=v2"
     },
     body: JSON.stringify({ assistant_id }),
   });
 
   const run = await runRes.json();
   if (!run.id) {
-    return res.status(500).json({ result: "Failed to initiate assistant run." });
+    return res.status(500).json({ result: "Failed to start assistant run." });
   }
 
   // Step 4: Poll until run completes
@@ -57,7 +60,8 @@ export default async function handler(req, res) {
     await new Promise((resolve) => setTimeout(resolve, 1500));
     const statusRes = await fetch(`https://api.openai.com/v1/threads/${thread.id}/runs/${run.id}`, {
       headers: {
-        Authorization: `Bearer ${OPENAI_API_KEY}`,
+        "Authorization": `Bearer ${OPENAI_API_KEY}`,
+        "OpenAI-Beta": "assistants=v2"
       },
     });
     const statusData = await statusRes.json();
@@ -72,7 +76,8 @@ export default async function handler(req, res) {
   // Step 5: Get the assistant response
   const messagesRes = await fetch(`https://api.openai.com/v1/threads/${thread.id}/messages`, {
     headers: {
-      Authorization: `Bearer ${OPENAI_API_KEY}`,
+      "Authorization": `Bearer ${OPENAI_API_KEY}`,
+      "OpenAI-Beta": "assistants=v2"
     },
   });
   const messageData = await messagesRes.json();
