@@ -1,7 +1,13 @@
 {
+  "rewrites": [
+    {
+      "source": "/embed-iframe",
+      "destination": "/embed.html"
+    }
+  ],
   "headers": [
     {
-      "source": "/embed",
+      "source": "/embed-iframe",
       "headers": [
         {
           "key": "X-Frame-Options",
