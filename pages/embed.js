@@ -21,11 +21,11 @@ export default function EmbedChat() {
     setInput("");
     setIsTyping(true);
 
-    const res = await fetch("/api/chat", {
+    const res = await fetch("/api/embed-chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        messages: [userMessage], // ✅ matches API format
+        messages: [userMessage],
       }),
     });
 
