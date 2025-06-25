@@ -23,17 +23,26 @@ export default function EmbedChat() {
 
     const res = await fetch("/api/chat", {
       method: "POST",
-      body: JSON.stringify({ input }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        messages: [userMessage], // ✅ matches API format
+      }),
     });
-    const data = await res.json();
 
-    setMessages((prev) => [...prev, { role: "assistant", content: data.output }]);
+    const data = await res.json();
+    const assistantMessage = {
+      role: "assistant",
+      content: data.result || "No response from assistant.",
+    };
+
+    setMessages((prev) => [...prev, assistantMessage]);
     setIsTyping(false);
   };
 
   return (
     <>
       <Head>
+        <title>NBA CBA Chat</title>
         <link
           href="https://fonts.googleapis.com/css2?family=Instrument+Sans&display=swap"
           rel="stylesheet"
@@ -123,7 +132,7 @@ export default function EmbedChat() {
               }}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask something about the NBA CBA…"
+              placeholder="Ask about the NBA CBA…"
             />
             <button
               type="submit"
