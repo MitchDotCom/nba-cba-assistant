@@ -108,7 +108,7 @@ export default function EmbedChat() {
                   fontStyle: "italic",
                 }}
               >
-                Assistant is typing…
+                Assistant is reviewing the CBA… One moment.
               </div>
             )}
             <div ref={messagesEndRef} />
@@ -132,7 +132,7 @@ export default function EmbedChat() {
               }}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask about the NBA CBA…"
+              placeholder="Ask me about the NBA CBA…"
             />
             <button
               type="submit"
