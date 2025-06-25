@@ -1,6 +1,7 @@
 // pages/embed.js
 import { useState, useRef, useEffect } from "react";
 import Head from "next/head";
+import ReactMarkdown from "react-markdown"; // ✅ Markdown renderer
 
 export default function EmbedChat() {
   const [messages, setMessages] = useState([]);
@@ -97,7 +98,7 @@ export default function EmbedChat() {
                   lineHeight: 1.4,
                 }}
               >
-                {msg.content}
+                <ReactMarkdown>{msg.content}</ReactMarkdown> {/* ✅ Markdown rendering */}
               </div>
             ))}
             {isTyping && (
