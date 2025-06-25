@@ -1,8 +1,8 @@
 export default async function handler(req, res) {
   const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
   const assistant_id = "asst_DSrlApTOUx2cGTvdGxGQSKiR";
-
   const messages = req.body.messages;
+
   if (!messages || messages.length === 0) {
     return res.status(400).json({ result: "No messages provided." });
   }
@@ -36,22 +36,32 @@ export default async function handler(req, res) {
     }),
   });
 
-  // Step 3: Dynamically fetch file_ids from Assistant
-  const assistantRes = await fetch(`https://api.openai.com/v1/assistants/${assistant_id}`, {
-    headers: {
-      Authorization: `Bearer ${OPENAI_API_KEY}`,
-      "OpenAI-Beta": "assistants=v2",
-    },
-  });
-
-  const assistantData = await assistantRes.json();
-  const file_ids = assistantData.tool_resources?.file_ids || [];
-
-  if (file_ids.length === 0) {
-    console.warn("No file_ids found for assistant — it may not return grounded answers.");
+  // Step 3: Try fetching file_ids from assistant config
+  let file_ids = [];
+  try {
+    const assistantRes = await fetch(
+      `https://api.openai.com/v1/assistants/${assistant_id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+          "OpenAI-Beta": "assistants=v2",
+        },
+      }
+    );
+    const assistantData = await assistantRes.json();
+    file_ids = assistantData.tool_resources?.file_ids || [];
+  } catch (err) {
+    console.warn("Failed to fetch file_ids — continuing without documents.");
   }
 
-  // Step 4: Start a run with file_ids attached
+  // Step 4: Start a run — include file_ids only if they exist
+  const runPayload = {
+    assistant_id,
+  };
+  if (file_ids.length > 0) {
+    runPayload.file_ids = file_ids;
+  }
+
   const runRes = await fetch(`https://api.openai.com/v1/threads/${thread.id}/runs`, {
     method: "POST",
     headers: {
@@ -59,10 +69,7 @@ export default async function handler(req, res) {
       Authorization: `Bearer ${OPENAI_API_KEY}`,
       "OpenAI-Beta": "assistants=v2",
     },
-    body: JSON.stringify({
-      assistant_id,
-      file_ids, // ✅ use dynamically fetched files
-    }),
+    body: JSON.stringify(runPayload),
   });
 
   const run = await runRes.json();
@@ -70,7 +77,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ result: "Failed to start assistant run." });
   }
 
-  // Step 5: Poll run status until complete
+  // Step 5: Poll until run completes
   let status = run.status;
   let retries = 0;
   const maxRetries = 20;
@@ -95,7 +102,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ result: "Assistant run failed or timed out." });
   }
 
-  // Step 6: Get final response message
+  // Step 6: Get the assistant response
   const messagesRes = await fetch(
     `https://api.openai.com/v1/threads/${thread.id}/messages`,
     {
