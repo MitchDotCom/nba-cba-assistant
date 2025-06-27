@@ -22,7 +22,7 @@ export default function EmbedChat() {
     setInput("");
     setIsTyping(true);
 
-const res = await fetch("/api/chat", {
+    const res = await fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -43,9 +43,9 @@ const res = await fetch("/api/chat", {
   return (
     <>
       <Head>
-        <title>NBA CBA Chat</title>
+        <title>NBA CBA Assistant</title>
         <link
-          href="https://fonts.googleapis.com/css2?family=Instrument+Sans&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;700&display=swap"
           rel="stylesheet"
         />
       </Head>
@@ -53,9 +53,9 @@ const res = await fetch("/api/chat", {
         style={{
           margin: 0,
           padding: 0,
-          height: "100vh",
+          minHeight: "100vh",
+          background: "#ffe066", // Brand yellow
           fontFamily: "'Instrument Sans', sans-serif",
-          background: "#f4f4f5",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -63,7 +63,7 @@ const res = await fetch("/api/chat", {
       >
         <div
           style={{
-            background: "white",
+            background: "#fff",
             width: "100%",
             maxWidth: 480,
             height: "90vh",
@@ -72,8 +72,78 @@ const res = await fetch("/api/chat", {
             display: "flex",
             flexDirection: "column",
             overflow: "hidden",
+            border: "3px solid #222",
           }}
         >
+          {/* HEADER */}
+          <div
+            style={{
+              background: "#222",
+              color: "#ffe066",
+              padding: "18px 0 10px 0",
+              textAlign: "center",
+              borderRadius: "9px 9px 0 0",
+              fontWeight: 700,
+              fontSize: "1.4rem",
+              letterSpacing: "0.5px",
+              borderBottom: "2px solid #222",
+            }}
+          >
+            NBA CBA Assistant
+            <div
+              style={{
+                fontWeight: 400,
+                fontSize: "1.05rem",
+                color: "#fff7cc",
+                marginTop: 2,
+                letterSpacing: 0,
+              }}
+            >
+              by Mitch Leblanc
+            </div>
+          </div>
+
+          {/* WELCOME & BACK TO SITE */}
+          <div
+            style={{
+              background: "#fff8dc",
+              borderBottom: "1.5px solid #f1c40f",
+              padding: "12px 22px",
+              fontSize: "1rem",
+              color: "#333",
+              textAlign: "center",
+            }}
+          >
+            <b>Ask anything about the NBA CBA, salary cap, or contract rules.</b>
+            <br />
+            <span style={{ color: "#b8860b" }}>
+              Fast, accurate answers for front offices, agents, and fans.
+            </span>
+            <div style={{ marginTop: 12 }}>
+              <a
+                href="https://mitchleblanc.xyz"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  background: "#222",
+                  color: "#ffe066",
+                  border: "none",
+                  borderRadius: 8,
+                  padding: "8px 20px",
+                  textDecoration: "none",
+                  fontWeight: 600,
+                  fontSize: "1rem",
+                  marginTop: 8,
+                  display: "inline-block",
+                  transition: "background 0.15s",
+                }}
+              >
+                ← Back to Website
+              </a>
+            </div>
+          </div>
+
+          {/* CHAT WINDOW */}
           <div
             style={{
               flex: 1,
@@ -82,6 +152,7 @@ const res = await fetch("/api/chat", {
               display: "flex",
               flexDirection: "column",
               gap: 10,
+              background: "#fff",
             }}
           >
             {messages.map((msg, i) => (
@@ -98,7 +169,7 @@ const res = await fetch("/api/chat", {
                   lineHeight: 1.4,
                 }}
               >
-                <ReactMarkdown>{msg.content}</ReactMarkdown> {/* ✅ Markdown rendering */}
+                <ReactMarkdown>{msg.content}</ReactMarkdown>
               </div>
             ))}
             {isTyping && (
@@ -114,6 +185,8 @@ const res = await fetch("/api/chat", {
             )}
             <div ref={messagesEndRef} />
           </div>
+
+          {/* INPUT */}
           <form
             onSubmit={handleSubmit}
             style={{
@@ -150,6 +223,24 @@ const res = await fetch("/api/chat", {
               Send
             </button>
           </form>
+
+          {/* FOOTER */}
+          <div
+            style={{
+              background: "#fff",
+              color: "#555",
+              fontSize: "0.92rem",
+              textAlign: "center",
+              padding: "7px 0 9px 0",
+              borderRadius: "0 0 12px 12px",
+              borderTop: "1px solid #f3e0a8",
+            }}
+          >
+            &copy; {new Date().getFullYear()} Mitch Leblanc. Powered by OpenAI.<br />
+            <span style={{ color: "#aaa" }}>
+              For informational purposes only. Always consult the official NBA CBA for legal certainty.
+            </span>
+          </div>
         </div>
       </div>
     </>
