@@ -44,6 +44,7 @@ export default function EmbedChat() {
     <>
       <Head>
         <title>NBA CBA Assistant</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link
           href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;700&display=swap"
           rel="stylesheet"
@@ -64,8 +65,9 @@ export default function EmbedChat() {
         <div
           style={{
             background: "#fff",
-            width: "100%",
+            width: "95vw",
             maxWidth: 480,
+            minWidth: 0,
             height: "90vh",
             borderRadius: 12,
             boxShadow: "0 0 10px rgba(0,0,0,0.1)",
@@ -84,7 +86,7 @@ export default function EmbedChat() {
               textAlign: "center",
               borderRadius: "9px 9px 0 0",
               fontWeight: 700,
-              fontSize: "1.1rem",
+              fontSize: "clamp(1.05rem, 2vw, 1.1rem)",
               letterSpacing: "0.3px",
               borderBottom: "2px solid #222",
             }}
@@ -93,7 +95,7 @@ export default function EmbedChat() {
             <div
               style={{
                 fontWeight: 400,
-                fontSize: "0.98rem",
+                fontSize: "clamp(0.9rem, 1.8vw, 0.98rem)",
                 color: "#fff7cc",
                 marginTop: 1,
                 letterSpacing: 0,
@@ -108,8 +110,8 @@ export default function EmbedChat() {
             style={{
               background: "#fff8dc",
               borderBottom: "1.5px solid #f1c40f",
-              padding: "10px 20px",
-              fontSize: "1rem",
+              padding: "min(10px, 2vw) min(6vw, 20px)",
+              fontSize: "clamp(0.97rem, 2vw, 1rem)",
               color: "#333",
               textAlign: "center",
             }}
@@ -128,10 +130,12 @@ export default function EmbedChat() {
                   padding: "8px 18px",
                   textDecoration: "none",
                   fontWeight: 600,
-                  fontSize: "0.98rem",
+                  fontSize: "clamp(0.95rem, 2vw, 1rem)",
                   marginTop: 8,
                   display: "inline-block",
                   transition: "background 0.15s",
+                  width: "100%",
+                  maxWidth: 250,
                 }}
               >
                 ← Back to Website
@@ -143,7 +147,7 @@ export default function EmbedChat() {
           <div
             style={{
               flex: 1,
-              padding: 16,
+              padding: "min(16px, 3vw)",
               overflowY: "auto",
               display: "flex",
               flexDirection: "column",
@@ -160,9 +164,10 @@ export default function EmbedChat() {
                   color: msg.role === "user" ? "white" : "#111827",
                   padding: "12px 14px",
                   borderRadius: 18,
-                  maxWidth: "80%",
+                  maxWidth: "90vw",
                   fontSize: 14,
                   lineHeight: 1.4,
+                  wordBreak: "break-word",
                 }}
               >
                 <ReactMarkdown>{msg.content}</ReactMarkdown>
@@ -187,9 +192,10 @@ export default function EmbedChat() {
             onSubmit={handleSubmit}
             style={{
               display: "flex",
-              padding: 12,
+              padding: "min(12px, 2.2vw)",
               borderTop: "1px solid #e5e7eb",
               background: "#fafafa",
+              gap: 8,
             }}
           >
             <input
@@ -199,6 +205,8 @@ export default function EmbedChat() {
                 border: "1px solid #d1d5db",
                 borderRadius: 8,
                 fontSize: 14,
+                width: 0,
+                minWidth: 0,
               }}
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -207,13 +215,13 @@ export default function EmbedChat() {
             <button
               type="submit"
               style={{
-                marginLeft: 8,
                 background: "#2563eb",
                 color: "white",
                 border: "none",
                 padding: "10px 16px",
                 borderRadius: 8,
                 cursor: "pointer",
+                fontSize: "1rem",
               }}
             >
               Send
@@ -225,11 +233,12 @@ export default function EmbedChat() {
             style={{
               background: "#fff",
               color: "#555",
-              fontSize: "0.9rem",
+              fontSize: "clamp(0.86rem, 1.5vw, 0.93rem)",
               textAlign: "center",
               padding: "7px 0 9px 0",
               borderRadius: "0 0 12px 12px",
               borderTop: "1px solid #f3e0a8",
+              wordBreak: "break-word",
             }}
           >
             &copy; {new Date().getFullYear()} Mitch Leblanc.<br />
