@@ -1,4 +1,3 @@
-// pages/embed.js
 import { useState, useRef, useEffect } from "react";
 import Head from "next/head";
 import ReactMarkdown from "react-markdown";
@@ -49,32 +48,46 @@ export default function EmbedChat() {
           href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;700&display=swap"
           rel="stylesheet"
         />
+        <style>{`
+          @media (max-width: 600px) {
+            .nba-cba-chat-card {
+              width: 100vw !important;
+              max-width: 100vw !important;
+              border-radius: 0 !important;
+              border-left: none !important;
+              border-right: none !important;
+            }
+          }
+        `}</style>
       </Head>
       <div
         style={{
-          margin: 0,
-          padding: 0,
           minHeight: "100vh",
           width: "100vw",
           background: "#ffe066",
           fontFamily: "'Instrument Sans', sans-serif",
           boxSizing: "border-box",
+          margin: 0,
+          padding: 0,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
         <div
+          className="nba-cba-chat-card"
           style={{
             background: "#fff",
-            width: "100vw",
+            width: "100%",
             maxWidth: 480,
-            minWidth: 0,
-            minHeight: "100vh",
             margin: "0 auto",
-            borderRadius: 0,
-            boxShadow: "0 0 10px rgba(0,0,0,0.08)",
+            borderRadius: 12,
+            boxShadow: "0 0 10px rgba(0,0,0,0.1)",
             display: "flex",
             flexDirection: "column",
             border: "3px solid #222",
-            boxSizing: "border-box",
+            height: "100vh",
+            minHeight: 400,
           }}
         >
           {/* HEADER */}
@@ -89,6 +102,7 @@ export default function EmbedChat() {
               fontSize: "clamp(1.05rem, 2vw, 1.1rem)",
               letterSpacing: "0.3px",
               borderBottom: "2px solid #222",
+              flexShrink: 0,
             }}
           >
             NBA CBA Assistant
@@ -114,6 +128,7 @@ export default function EmbedChat() {
               fontSize: "clamp(0.97rem, 2vw, 1rem)",
               color: "#333",
               textAlign: "center",
+              flexShrink: 0,
             }}
           >
             <b>Ask anything about the NBA CBA, salary cap, or contract rules.</b>
@@ -147,6 +162,7 @@ export default function EmbedChat() {
           <div
             style={{
               flex: 1,
+              minHeight: 0,
               padding: "min(16px, 3vw)",
               overflowY: "auto",
               display: "flex",
@@ -196,6 +212,7 @@ export default function EmbedChat() {
               borderTop: "1px solid #e5e7eb",
               background: "#fafafa",
               gap: 8,
+              flexShrink: 0,
             }}
           >
             <input
@@ -239,6 +256,7 @@ export default function EmbedChat() {
               borderRadius: "0 0 12px 12px",
               borderTop: "1px solid #f3e0a8",
               wordBreak: "break-word",
+              flexShrink: 0,
             }}
           >
             &copy; {new Date().getFullYear()} Mitch Leblanc.<br />
