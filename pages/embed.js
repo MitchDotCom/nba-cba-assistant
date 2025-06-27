@@ -1,7 +1,7 @@
 // pages/embed.js
 import { useState, useRef, useEffect } from "react";
 import Head from "next/head";
-import ReactMarkdown from "react-markdown"; // ✅ Markdown renderer
+import ReactMarkdown from "react-markdown";
 
 export default function EmbedChat() {
   const [messages, setMessages] = useState([]);
@@ -54,7 +54,7 @@ export default function EmbedChat() {
           margin: 0,
           padding: 0,
           minHeight: "100vh",
-          background: "#ffe066", // Brand yellow
+          background: "#ffe066",
           fontFamily: "'Instrument Sans', sans-serif",
           display: "flex",
           justifyContent: "center",
@@ -80,12 +80,12 @@ export default function EmbedChat() {
             style={{
               background: "#222",
               color: "#ffe066",
-              padding: "18px 0 10px 0",
+              padding: "10px 0 6px 0",
               textAlign: "center",
               borderRadius: "9px 9px 0 0",
               fontWeight: 700,
-              fontSize: "1.4rem",
-              letterSpacing: "0.5px",
+              fontSize: "1.1rem",
+              letterSpacing: "0.3px",
               borderBottom: "2px solid #222",
             }}
           >
@@ -93,9 +93,9 @@ export default function EmbedChat() {
             <div
               style={{
                 fontWeight: 400,
-                fontSize: "1.05rem",
+                fontSize: "0.98rem",
                 color: "#fff7cc",
-                marginTop: 2,
+                marginTop: 1,
                 letterSpacing: 0,
               }}
             >
@@ -108,18 +108,14 @@ export default function EmbedChat() {
             style={{
               background: "#fff8dc",
               borderBottom: "1.5px solid #f1c40f",
-              padding: "12px 22px",
+              padding: "10px 20px",
               fontSize: "1rem",
               color: "#333",
               textAlign: "center",
             }}
           >
             <b>Ask anything about the NBA CBA, salary cap, or contract rules.</b>
-            <br />
-            <span style={{ color: "#b8860b" }}>
-              Fast, accurate answers for front offices, agents, and fans.
-            </span>
-            <div style={{ marginTop: 12 }}>
+            <div style={{ marginTop: 10 }}>
               <a
                 href="https://mitchleblanc.xyz"
                 target="_blank"
@@ -129,10 +125,10 @@ export default function EmbedChat() {
                   color: "#ffe066",
                   border: "none",
                   borderRadius: 8,
-                  padding: "8px 20px",
+                  padding: "8px 18px",
                   textDecoration: "none",
                   fontWeight: 600,
-                  fontSize: "1rem",
+                  fontSize: "0.98rem",
                   marginTop: 8,
                   display: "inline-block",
                   transition: "background 0.15s",
@@ -229,14 +225,14 @@ export default function EmbedChat() {
             style={{
               background: "#fff",
               color: "#555",
-              fontSize: "0.92rem",
+              fontSize: "0.9rem",
               textAlign: "center",
               padding: "7px 0 9px 0",
               borderRadius: "0 0 12px 12px",
               borderTop: "1px solid #f3e0a8",
             }}
           >
-            &copy; {new Date().getFullYear()} Mitch Leblanc. Powered by OpenAI.<br />
+            &copy; {new Date().getFullYear()} Mitch Leblanc.<br />
             <span style={{ color: "#aaa" }}>
               For informational purposes only. Always consult the official NBA CBA for legal certainty.
             </span>
