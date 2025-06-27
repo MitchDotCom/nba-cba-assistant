@@ -55,26 +55,26 @@ export default function EmbedChat() {
           margin: 0,
           padding: 0,
           minHeight: "100vh",
+          width: "100vw",
           background: "#ffe066",
           fontFamily: "'Instrument Sans', sans-serif",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          boxSizing: "border-box",
         }}
       >
         <div
           style={{
             background: "#fff",
-            width: "95vw",
+            width: "100vw",
             maxWidth: 480,
             minWidth: 0,
-            height: "90vh",
-            borderRadius: 12,
-            boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+            minHeight: "100vh",
+            margin: "0 auto",
+            borderRadius: 0,
+            boxShadow: "0 0 10px rgba(0,0,0,0.08)",
             display: "flex",
             flexDirection: "column",
-            overflow: "hidden",
             border: "3px solid #222",
+            boxSizing: "border-box",
           }}
         >
           {/* HEADER */}
