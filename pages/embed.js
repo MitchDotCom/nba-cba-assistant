@@ -49,6 +49,16 @@ export default function EmbedChat() {
           rel="stylesheet"
         />
         <style>{`
+          html, body, #__next {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+          }
+          @supports (height: 100dvh) {
+            .nba-cba-chat-card {
+              height: 100dvh !important;
+            }
+          }
           @media (max-width: 600px) {
             .nba-cba-chat-card {
               width: 100vw !important;
@@ -62,32 +72,30 @@ export default function EmbedChat() {
       </Head>
       <div
         style={{
-          minHeight: "100vh",
-          width: "100vw",
           background: "#ffe066",
           fontFamily: "'Instrument Sans', sans-serif",
-          boxSizing: "border-box",
           margin: 0,
           padding: 0,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          minHeight: "100vh",
+          width: "100vw",
+          boxSizing: "border-box",
         }}
       >
         <div
           className="nba-cba-chat-card"
           style={{
             background: "#fff",
-            width: "100%",
+            width: "100vw",
             maxWidth: 480,
             margin: "0 auto",
-            borderRadius: 12,
+            borderRadius: 0,
             boxShadow: "0 0 10px rgba(0,0,0,0.1)",
             display: "flex",
             flexDirection: "column",
             border: "3px solid #222",
-            height: "100vh",
+            height: "100vh", // will be overridden by 100dvh if supported
             minHeight: 400,
+            boxSizing: "border-box",
           }}
         >
           {/* HEADER */}
